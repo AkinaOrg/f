@@ -1,0 +1,26 @@
+import re
+
+def solve_expression(expression):
+    
+    numbers = [float(match.group()) for match in re.finditer(r'\d+(\.\d+)?', expression)]
+
+    operators = re.findall(r'[-+*/]', expression)
+
+    result = numbers[0]
+    for i in range(1, len(numbers)):
+        if operators[i-1] == '+':
+            result += numbers[i]
+        elif operators[i-1] == '-':
+            result -= numbers[i]
+        elif operators[i-1] == '*':
+            result *= numbers[i]
+        elif operators[i-1] == '/':
+            result /= numbers[i]
+
+    return result
+
+# Введення математичного виразу
+expression = input("Введіть математичний вираз: ")
+
+result = solve_expression(expression)
+print("Результат виразу:", result)
